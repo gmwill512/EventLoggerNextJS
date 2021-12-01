@@ -2,7 +2,6 @@ import AddressIcon from '../icons/address-icon';
 import DateIcon from '../icons/date-icon';
 import LogisticsItem from './logistics-item';
 import classes from './event-logistics.module.css';
-import { EventType } from '../../data';
 
 type Props = {
   date: Date | string;

@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import classes from './buttons.module.css';
 type Props = {
-  children: string;
+  children: string | JSX.Element | JSX.Element[];
   link?: string;
-  onClick: () => void;
+  onClick?: () => void;
 };
+
 const Button: React.FC<Props> = (props) => {
   if (props.link) {
     return (

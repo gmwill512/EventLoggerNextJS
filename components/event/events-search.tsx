@@ -1,30 +1,34 @@
 import Button from '../ui/button';
 import classes from './event-search.module.css';
 import { useRef } from 'react';
-import { months } from '../../data';
+import { months, EventType } from '../../data';
 
 type Month = {
   value: string;
   name: string;
 };
 
-type Props = {};
+type Props = {
+  onSearch: (selectedYear?: string, selectedMonth?: string) => void;
+};
 
 const EventSearch: React.FC<Props> = (props) => {
-  const yearInputRef = useRef<HTMLSelectElement>(
-    document.createElement('select')
-  );
-  const monthInputRef = useRef<HTMLSelectElement>(
-    document.createElement('select')
-  );
+  const yearInputRef = useRef<HTMLSelectElement>(null);
+  const monthInputRef = useRef<HTMLSelectElement>(null);
 
   function submitHandler(event: any) {
     event.preventDefault();
-    if (null !== yearInputRef.current || null !== monthInputRef.current) {
-      const selectedYear = yearInputRef.current.value;
-      const selectedMonth = monthInputRef.current.value;
+    if (
+      (yearInputRef.current && yearInputRef.current.value) ||
+      monthInputRef.current
+    ) {
+      const selectedYear = yearInputRef.current?.value;
+      const selectedMonth = monthInputRef.current?.value;
+
+      props.onSearch(selectedYear, selectedMonth);
     }
   }
+
   return (
     <form className={classes.form} onSubmit={submitHandler}>
       <div className={classes.controls}>
@@ -46,7 +50,7 @@ const EventSearch: React.FC<Props> = (props) => {
           </select>
         </div>
       </div>
-      <Button>Fine Events</Button>
+      <Button>Find Events</Button>
     </form>
   );
 };
